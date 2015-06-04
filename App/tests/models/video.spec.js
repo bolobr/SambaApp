@@ -32,14 +32,43 @@ describe('Model Video', function () {
 
 
 describe('Instance of Video', function(){
+  //Testing for identical paths for encoded and original video
   v = video_inst.create({
     name: "teste",
     original_path: "/home/teste",
     encoded_video_path: "/home/teste"
   }, function(){
-    it("Should not have same path for both", function(){
+    it("Should not have same path for both original and encoded", function(){
       assert.notEqual(v.original_path, v.encoded_video_path);
-
     });
   });
+
+  v = video_inst.create({
+    name: "",
+    original_path: "/home/teste"
+  }, function(){
+    it("Should not allow creation of video without a name", function(){
+      assert.notEqual(err, undefined);
+    });
+  });
+
+
+  v = video_inst.create({
+    name: "teste",
+    original_path: ""
+  }, function(){
+    it("Should not allow creation of video without a original path", function(){
+      assert.notEqual(err, undefined);
+    });
+  });
+
+  //Testing for video in web safe format
+  //v = video_inst.create({
+  //  name: "te",
+  //  original_video_path: "te"
+  //}, function(err, vid){
+  //  it("should have a web safe extension for encoded video", function(){
+  //
+  //  })
+  //})
 });
