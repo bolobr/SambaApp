@@ -12,6 +12,20 @@ module.exports = {
       type: 'string',
       required: true
     },
+    "original_video_path": {
+      type: 'string',
+      required: true,
+      unique: true
+    },
+    "encoded_video_path": {
+      type: 'string',
+      unique: true
+    }
 
+  },
+
+  beforeCreate: function(video, cb){
+    str_array = video.original_video_path.split('/')
+    video.encoded_video_path = "/home/teste/vid1/encoded/" + video.name; 
   }
 };
