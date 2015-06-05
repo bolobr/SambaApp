@@ -14,7 +14,7 @@ module.exports = {
     },
     "file_name":{
       type: 'string'
-    }
+    },
     "original_video_path": {
       type: 'string',
       required: true,
@@ -32,5 +32,6 @@ module.exports = {
     video.original_video_path = "/home/teste/vid1/original/" + video.file_name;
     str_array = video.original_video_path.split('/');
     video.encoded_video_path = "/home/teste/vid1/encoded/" + video.file_name;
+    cb();
   }
 };

@@ -15,27 +15,29 @@ module.exports = {
 			return res.view();
 		},
 		create: function(req, res){
+			name = req.param('name');
 			var vidObj = {
-				req.param('name');
+				name: name,
+				original_video_path: "teste",
 			}
-
-			Video.create(vidObj, function vidCreated(err, vid){
+			console.log(vidObj);
+			Video.create(vidObj, function(err, vid){
 				if(err){
-					console.log("Erro na criação");
 					return res.redirect('/new_video');
 				}
+				res.redirect('/video/' + vid.id);
 			});
 
-			res.redirect('/video/' + vid.id);
-		}
+			;
+		},
 		show: function(req, res){
-			Video.findOne(req.param('id'), function foundVideo(err, vid){
+			Video.findOne(req.param('id'), function(err, vid){
 				if(err) return res.notFound();
 				res.view({
-					video: video
+					video: vid
 				})
 			});
-		}
+		},
 
     _config: {}
 
