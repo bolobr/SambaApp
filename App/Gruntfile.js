@@ -14,6 +14,31 @@
 
 module.exports = function(grunt) {
 
+	//This has to be up here
+	grunt.initConfig({
+		// Configure a mochaTest task
+		mochaTest: {
+			test: {
+				options: {
+					reporter: 'spec',
+					captureFile: 'results.txt', // Optionally capture the reporter output to a file
+					quiet: false, // Optionally suppress output to standard out (defaults to false)
+					clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
+				},
+				src: ['tests/**/*.js']
+			}
+		},
+
+		bower: {
+    	install: {
+      	options: {
+        	targetDir: './assets/vendor/'
+      }
+    }
+  }
+
+
+	});
 
 	// Load the include-all library in order to require all of our grunt
 	// configurations and task registrations dynamically.
@@ -84,20 +109,7 @@ module.exports = function(grunt) {
 	// Add the grunt-mocha-test tasks.
 	grunt.loadNpmTasks('grunt-mocha-test');
 
-	grunt.initConfig({
-		// Configure a mochaTest task
-		mochaTest: {
-			test: {
-				options: {
-					reporter: 'spec',
-					captureFile: 'results.txt', // Optionally capture the reporter output to a file
-					quiet: false, // Optionally suppress output to standard out (defaults to false)
-					clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
-				},
-				src: ['tests/**/*.js']
-			}
-		}
-	});
+
 
 	grunt.registerTask('test', 'mochaTest');
 

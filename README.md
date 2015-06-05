@@ -1,11 +1,11 @@
 # SambaApp
 Aplicação construída para o processo de seleção da SambaTech
 
-#Linguagem e Framework: NodeJS(Javascript) + Sails
-#Banco de Dados: MongoDB
-#Máquina Virtual: Heroku
+-Linguagem e Framework: NodeJS(Javascript) + Sails
+-Banco de Dados: MongoDB
+-Máquina Virtual: Heroku
 
-Executando o projeto:
+#Executando o projeto:
 
 Instale NodeJS + npm + dependências.
 $: npm install -g sails
@@ -20,7 +20,7 @@ $: sails lift
 Abra o Browser em:
 http://localhost:1337/
 
-#Executando Testes:
+Executando Testes:
 $: grunt test
 
 
