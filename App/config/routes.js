@@ -34,7 +34,8 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
+  'GET /test': "Video_operationController.index"
 
   /***************************************************************************
   *                                                                          *

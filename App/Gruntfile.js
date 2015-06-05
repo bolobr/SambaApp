@@ -27,7 +27,17 @@ module.exports = function(grunt) {
 				},
 				src: ['tests/**/*.js']
 			}
-		}
+		},
+
+		bower: {
+    	install: {
+      	options: {
+        	targetDir: './assets/vendor/'
+      }
+    }
+  }
+
+
 	});
 
 	// Load the include-all library in order to require all of our grunt
