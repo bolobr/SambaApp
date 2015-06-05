@@ -35,6 +35,9 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   }
+  'GET /new_video': 'Video_operationController.new_video',
+  'POST /create': 'Video_operationController.create',
+  'GET /video/:id': 'Video_operationController.show',
 
   /***************************************************************************
   *                                                                          *
