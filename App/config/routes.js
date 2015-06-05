@@ -37,6 +37,7 @@ module.exports.routes = {
   },
   'GET /test': "Video_operationController.index",
   'GET /new_video': "Video_operationController.new_video",
+  'POST /create': "Video_operationController.create",
 
   /***************************************************************************
   *                                                                          *
