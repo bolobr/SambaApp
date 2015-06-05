@@ -27,8 +27,7 @@ module.exports = {
 			});
 
 			res.redirect('/video/' + vid.id);
-		},
-		
+		}
 		show: function(req, res){
 			Video.findOne(req.param('id'), function foundVideo(err, vid){
 				if(err) return res.notFound();

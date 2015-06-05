@@ -41,6 +41,7 @@ module.exports.routes = {
   'GET /video/:id': 'Video_operationController.show',
   'GET /home': "Video_operationController.index"
 
+
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
