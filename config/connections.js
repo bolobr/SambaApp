@@ -65,6 +65,14 @@ module.exports.connections = {
     // database: 'your_mongo_db_name_here'
   },
 
+  productionMongoServer: {
+    adapter: 'sails-mongo',
+    url: 'mongodb://sambatest:teste@ds045242.mongolab.com:45242/heroku_app37580612'
+    // user: 'username',
+    // password: 'password',
+    // database: 'your_mongo_db_name_here'
+  },
+
   /***************************************************************************
   *                                                                          *
   * PostgreSQL is another officially supported relational database.          *

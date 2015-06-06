@@ -35,6 +35,9 @@ module.exports = {
 						// }
 					}, function(err, files){
 						console.log(err);
+						if(err){
+							res.view('/new_video')
+						}
 						console.log(files);
 						res.view('homepage');
 					});
