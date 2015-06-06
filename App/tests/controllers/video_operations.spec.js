@@ -6,6 +6,45 @@ var request = require('supertest');
 var wolfpack = require('wolfpack');
 var video_inst = wolfpack('/api/models/Video');
 
+//Stub for wrong file
+var wrong_file = function(field){
+  file_resp = {
+    upload: function(hash, f){
+      files = [
+        { fd: '/home/gcordeiro/SambaApp/App/.tmp/uploads/983873e9-35b4-4335-9e21-3a379b05de94.pdf',
+          size: 285515,
+          type: 'application/pdf',
+          filename: 'Tak.pdf',
+          status: 'bufferingOrWriting',
+          field: 'file',
+          extra: undefined }
+      ]
+      f(null, files);
+    }
+  }
+  return file_resp;
+}
+
+
+//Stub for correct file
+var correct_file = function(field){
+  file_resp = {
+    upload: function(hash, f){
+      files = [
+        { fd: '/home/gcordeiro/SambaApp/App/.tmp/uploads/aacb9d37-265d-43bb-9f63-8d456882c7ec.dv',
+        size: 109800114,
+        type: 'video/dv',
+        filename: 'sample.dv',
+        status: 'bufferingOrWriting',
+        field: 'file',
+        extra: undefined }
+      ]
+      f(null, files);
+    }
+  }
+  return file_resp;
+}
+
 
 //Stub for requests
 var request = {
@@ -14,6 +53,7 @@ var request = {
   param: function(field){
     return this.params[field]
   },
+  file: wrong_file,
   reset: function(){
     params = {};
   }
@@ -24,18 +64,18 @@ var response = {
   //Redirect
   redirect_called: false,
   redirect: function(params){
-    this.redirect_called = params
+    this.redirect_called = params;
   },
   //View
   view_called: false,
   view: function(params){
-    this.view_called = params
+    this.view_called = params;
   },
 
   //Reset Structure
   reset: function(){
     this.redirect_called = false;
-    this.view_called = false
+    this.view_called = false;
   }
 }
 
@@ -49,7 +89,7 @@ describe("Vid Op Controller", function(){
     it('should render the view new_video', function(){
       var view = sinon.spy();
       VidOp.new_video(null, {
-        view: view
+        view: view,
       });
       assert.ok(view.called);
     });
@@ -57,7 +97,7 @@ describe("Vid Op Controller", function(){
     it('should render the view index', function(){
       var view = sinon.spy();
       VidOp.index(null, {
-        view: view
+        view: view,
       });
       assert.ok(view.called);
     });
@@ -66,7 +106,7 @@ describe("Vid Op Controller", function(){
   //Este teste é mais complicado um pouco
   describe("Get pages with parameters", function(){
     //Elimina qualquer teste do Banco de dados
-    video_inst.destroy({name: 'Teste'}, function(err,v){})
+    video_inst.destroy({name: 'Teste'}, function(err,v){});
     //Instancia uma versão com o nome teste
     video_inst.create({
       name: "Teste",
@@ -89,18 +129,31 @@ describe("Vid Op Controller", function(){
   response.reset();
 
   describe("Post to create", function(){
-    it("should create and redirect", function(){
+    it("should not allow files other than video", function(){
       //Elimina qualquer teste do Banco de dados
-      video_inst.destroy({name: 'Teste'}, function(err,v){})
+      video_inst.destroy({name: 'Teste'}, function(err,v){});
       request.params.name = "Teste";
       VidOp.create(request, response);
-      //Testa se redirect foi chamado;
-      assert.equal(response.redirect_called, true);
-      //Este teste pode ser mais específico se observar para onde o redirect é enviado.
-      //Mas dado a natureza limitada do campo de testes do framework escolhido
-      //Enviar um arquivo por meio de um teste é mais complicado do que se imaginava.
-      //Assim, outros testes serão realizados conforme a demanda
-    })
-  })
+      //O teste é feito verificando a rota tomada de padrão '/video/:id'
+      str = response.redirect_called.split('/')[1] //obtem o video da rota
+      assert.equal(str, 'new_video');//verifica se está correto
 
-})
+    });
+
+    it("should create and redirect para a página show with correct params", function(){
+      //Elimina qualquer teste do Banco de dados
+      video_inst.destroy({name: 'Teste'}, function(err,v){});
+      request.params.name = "Teste";
+      VidOp.create(request, response);
+      //O teste é feito verificando a rota tomada de padrão '/video/:id'
+      str = response.redirect_called.split('/')[1] //obtem o video da rota
+      assert.equal(str, 'video');//verifica se está correto
+
+    });
+
+
+  });
+
+
+
+});
