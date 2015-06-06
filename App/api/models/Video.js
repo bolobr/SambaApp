@@ -28,7 +28,7 @@ module.exports = {
   },
 
   beforeCreate: function(video, cb){
-    file_name = video.name;
+    video.file_name = video.name;
     video.original_video_path = "/home/teste/vid1/original/" + video.file_name;
     str_array = video.original_video_path.split('/');
     video.encoded_video_path = "/home/teste/vid1/encoded/" + video.file_name;

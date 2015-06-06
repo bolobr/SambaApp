@@ -33,13 +33,13 @@ describe('Model Video', function () {
 
 describe('Instance of Video', function(){
   //Testing for identical paths for encoded and original video
-  v = video_inst.beforeCreate({
+  v = video_inst.create({
     name: "teste",
     original_video_path: "/home/teste/vid1/original/vid",
     encoded_video_path: "/home/teste/vid1/original/vid"
   }, function(err, vid){
     it("Should not have same path for both original and encoded", function(){
-      assert.notEqual(vid.original_path, vid.encoded_video_path);
+      assert.notEqual(vid.original_video_path, vid.encoded_video_path);
     });
   });
 
