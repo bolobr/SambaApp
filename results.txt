@@ -1,0 +1,56 @@
+
+[0m[0m
+[0m  Vid Op Controller[0m
+[0m    Get pages without parameters[0m
+[2K[0G    [32m  ✓[0m[90m should render the view new_video[0m
+[2K[0G    [32m  ✓[0m[90m should render the view index[0m
+[0m    Get pages with parameters[0m
+[2K[0G    [32m  ✓[0m[90m should render the show view[0m
+[0m    Post to create[0m
+[ { fd: '/home/gcordeiro/SambaApp/App/.tmp/uploads/983873e9-35b4-4335-9e21-3a379b05de94.pdf',
+    size: 285515,
+    type: 'application/pdf',
+    filename: 'Tak.pdf',
+    status: 'bufferingOrWriting',
+    field: 'file',
+    extra: undefined } ]
+[2K[0G    [31m  1) should not allow files other than video[0m
+[ { fd: '/home/gcordeiro/SambaApp/App/.tmp/uploads/983873e9-35b4-4335-9e21-3a379b05de94.pdf',
+    size: 285515,
+    type: 'application/pdf',
+    filename: 'Tak.pdf',
+    status: 'bufferingOrWriting',
+    field: 'file',
+    extra: undefined } ]
+[2K[0G    [32m  ✓[0m[90m should create and redirect para a página show with correct params[0m
+
+[0m  Model Video[0m
+[0m    Name Attribute[0m
+[2K[0G    [32m  ✓[0m[90m it should have a name attribute[0m
+[0m    Paths[0m
+[2K[0G    [32m  ✓[0m[90m should have an original video path[0m
+[2K[0G    [32m  ✓[0m[90m should have an encoded video path[0m
+[0m    Functions[0m
+[2K[0G    [32m  ✓[0m[90m shoud have a beforeCreate[0m
+
+[0m  Instance of Video[0m
+[2K[0G  [32m  ✓[0m[90m Should not have same path for both original and encoded[0m
+[2K[0G  [32m  ✓[0m[90m Should not allow creation of video without a name[0m
+[2K[0G  [32m  ✓[0m[90m Should not allow creation of video without a original path[0m
+
+
+[92m [0m[32m 11 passing[0m[90m (22ms)[0m
+[31m  1 failing[0m
+
+[0m  1) Vid Op Controller Post to create should not allow files other than video:
+
+      [31mAssertionError: "video" == "new_video"[0m
+      [32m+ expected[0m [31m- actual[0m
+
+      [31m-video[0m
+      [32m+new_video[0m
+      [0m[90m
+      at Context.<anonymous> (tests/controllers/video_operations.spec.js:139:14)
+[0m
+
+
