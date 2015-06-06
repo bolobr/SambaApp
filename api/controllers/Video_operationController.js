@@ -7,6 +7,23 @@
 //Only for testing with mocha and grunt
 //var wolfpack = require('wolfpack');
 //var Video = wolfpack('/api/models/Video');
+var s3 = require('s3');
+
+var client = s3.createClient({
+  maxAsyncS3: 20,     // this is the default
+  s3RetryCount: 3,    // this is the default
+  s3RetryDelay: 1000, // this is the default
+  multipartUploadThreshold: 209715200, // (~200 MB)
+  multipartUploadSize: 157286400, // (~150 MB)
+  s3Options: {
+    accessKeyId: "AKIAIHBRBJ5T7ZK6Q5ZA",
+    secretAccessKey: "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",
+    // any other options are passed to new AWS.S3()
+    // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html#constructor-property
+  },
+});
+
+var client = s3.createClient(options)
 
 module.exports = {
 
