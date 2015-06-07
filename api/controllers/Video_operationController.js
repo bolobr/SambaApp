@@ -28,7 +28,7 @@ var client = s3.createClient({
 });
 
 module.exports = {
-
+    //List every video coded up to now
 	 	index: function (req, res) {
        Video.find({}, function(err, videos){
          if(err || videos.length == 0) return res.view({
@@ -42,30 +42,26 @@ module.exports = {
        })
 
     },
-    check_name: function(req, res){
-      name = req.param('name');
-      Video.find({name: name}, function(err, videos){
-        if(err || videos.length == 0) return res.json(false);
-        return res.json(true)
-      });
-    },
 
+    //New Video View
 		new_video: function(req, res){
 			return res.view();
 		},
+
+    //Create Video Action
 		create: function(req, res){
       res.setTimeout(0);
       file = req.file('file');
       file.upload({
-        maxBytes: 2000000000,
+        maxBytes: 2000000000, //MaxBytes for big files
         onProgress: function(teste, log){
             // console.log(teste);
         },
         }, function(err, files){
           if(err){
-            console.log(err);
             return res.redirect('/new_video');
           }
+          //File config to store in the database
           name = files[0]['filename'].split('.')[0]
           console.log(name);
           new_file_name = files[0]['filename'].split('.')[0] + '.mp4'
@@ -88,6 +84,7 @@ module.exports = {
       });
     },
 
+    //Show function
     show: function(req, res){
 			parameter = req.param('id') || req.params
 			Video.findOne(parameter, function(err, vid){
