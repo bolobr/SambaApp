@@ -6,8 +6,12 @@
 */
 var encoded_path = "video/encoded/"
 var original_path = "video/original/"
+var aws_prefix = "http://s3.amazonaws.com/bolobuckettest/"
+var http = require('http');
 var s3 = require('s3');
 var fs = require('fs');
+var zencoder = require('zencoder');
+var client_z = zencoder(process.env.ZencoderApi)
 
 var client = s3.createClient({
   maxAsyncS3: 20,     // this is the default
@@ -22,6 +26,8 @@ var client = s3.createClient({
     // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Config.html#constructor-property
   },
 });
+
+
 
 module.exports = {
 
@@ -49,13 +55,16 @@ module.exports = {
     "pending_encoded": {
       type: 'boolean',
       default: false
+    },
+    "job_id":{
+      type: 'String'
     }
 
   },
 
 
   //Extra functions
-  upload_s3: function(files){
+  upload_s3: function(files, name){
     console.log(files);
     var params = {
       localFile: files[0]['fd'],
@@ -67,7 +76,19 @@ module.exports = {
     uploader = client.uploadFile(params);
     uploader.on('end', function() {
       console.log("done uploading");
+      new_file_name = files[0]['filename'].split('.')[0] + '.mp4'
       fs.unlink(files[0]['fd']);
+      var data =  {
+        input: aws_prefix + original_path + name + '/' + files[0]['filename'],
+        outputs: [{
+          "url": aws_prefix + encoded_path + name + '/' + new_file_name,
+          "public": true,
+        }],
+      }
+      client_z.Job.create(data, function(err, data) {
+        if (err) { console.log(err); return; }
+        console.log(data);
+      });
     });
     uploader.on('progress', function(){
       console.log("progress", uploader.progressMd5Amount,

@@ -1,11 +1,15 @@
 <%if (videos != undefined && videos.length > 0){%>
   <div class="box">
     <h2>Estes são os videos codificados até o momento:</h2>
+    <ul>
       <% videos.forEach(function(vid){%>
+        <li>
             <a href='video/<%= vid.id %>'>
                 <%= vid.name %>
             </a>
+        </li>
       <%});%>
+    </ul>
   </div>
 <%} else {%>
   <% error %>

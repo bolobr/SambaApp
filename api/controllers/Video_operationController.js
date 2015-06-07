@@ -8,6 +8,8 @@
 //var wolfpack = require('wolfpack');
 //var Video = wolfpack('/api/models/Video');
 var s3 = require('s3');
+var encoded_path = "s3.amazonaws.com/bolobuckettest/video/encoded/"
+var original_path = "s3.amazonaws.com/bolobuckettest/video/original/"
 
 var client = s3.createClient({
   maxAsyncS3: 20,     // this is the default
@@ -48,18 +50,20 @@ module.exports = {
         },
         }, function(err, files){
           if(err){
-            res.view('/new_video')
+            return res.redirect('/new_video')
           }
-          Video.upload_s3(files);
+          name = req.param('name')
+          new_file_name = files[0]['filename'].split('.')[0] + '.mp4'
           Video.create({
-            name: req.param('name'),
+            name: name,
             original_video_path: original_path + name + '/' + files[0]['filename'],
-            encoded_video_path: original_path + name + '/' + files[0]['filename'],
+            encoded_video_path: encoded_path + name + '/' + new_file_name,
             file_name: files[0]['filename'],
           }, function(err, video){
             if(err){
-              res.view('/new_video')
+              return res.redirect('/new_video')
             }
+            Video.upload_s3(files, video.name);
             res.redirect('/video/' + video.id)
           });
 
