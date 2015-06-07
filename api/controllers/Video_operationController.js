@@ -65,11 +65,11 @@ module.exports = {
             console.log(err);
             return res.redirect('/new_video');
           }
-          name = req.param('name')
+          name = files[0]['filename'].split('.')[0]
           console.log(name);
           new_file_name = files[0]['filename'].split('.')[0] + '.mp4'
           Video.create({
-            name: files[0]['filename'],
+            name: name,
             original_video_path: original_path + name + '/' + files[0]['filename'],
             encoded_video_path: encoded_path + name + '/' + new_file_name,
             file_name: files[0]['filename'],
