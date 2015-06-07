@@ -78,7 +78,6 @@ module.exports = {
             pending_original: 'true',
           }, function(err, video){
             if(err){
-              console.log(err);
               return res.redirect('/new_video');
               fs.unlink(files[0]['fd']);
             }
@@ -92,24 +91,12 @@ module.exports = {
     show: function(req, res){
 			parameter = req.param('id') || req.params
 			Video.findOne(parameter, function(err, vid){
-        console.log(vid);
 				if(err){
-					console.log(err);
 					return res.notFound();
 				}
-        if(vid.pending_original == 'false' && vid.pending_encoded == 'true'){
-          request("https://" + vid.encoded_video_path, function (err, resp) {
-            if (err) return res.view({video: vid});
-            if (resp.statusCode === 200) {
-              vid.pending_encoded = false;
-              Video.update({id: parameter}, {pending_encoded: 'false'}, function(err){})
-            }
-            return res.view({
-              video: vid
-            })
-          });
-
-        }
+        return res.view({
+          video: vid
+        })
 
 			});
 		},
