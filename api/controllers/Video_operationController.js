@@ -53,11 +53,12 @@ module.exports = {
       file.upload({
         maxBytes: 2000000000,
         onProgress: function(teste, log){
-            //console.log(teste.percent);
+            console.log(teste.percent);
         },
         }, function(err, files){
           if(err){
-            return res.redirect('/new_video')
+            console.log(err);
+            return res.redirect('/new_video');
           }
           name = req.param('name')
           new_file_name = files[0]['filename'].split('.')[0] + '.mp4'
