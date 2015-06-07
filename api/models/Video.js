@@ -49,12 +49,10 @@ module.exports = {
       unique: true
     },
     "pending_original": {
-      type: 'boolean',
-      default: false
+      type: 'string',
     },
     "pending_encoded": {
-      type: 'boolean',
-      default: false
+      type: 'string',
     },
     "job_id":{
       type: 'String'
@@ -75,7 +73,10 @@ module.exports = {
     };
     uploader = client.uploadFile(params);
     uploader.on('end', function() {
-      console.log("done uploading");
+      Video.update({name: name}, {pending_original: false} ,function(err, vid){
+        console.log(err);
+      })
+
       new_file_name = files[0]['filename'].split('.')[0] + '.mp4'
       fs.unlink(files[0]['fd']);
       var data =  {

@@ -1,10 +1,21 @@
 <div class="col-md-8 box col-md-offset-2">
 
 
-Este é o <%= video.name %></br>
-Este é o path da versão original <%= video.original_video_path %></br>
-<a href="http://<%= video.encoded_video_path %>" class="btn btn-lg btn-primary btn-block">Versão codificada</a></br>
-
+<h2>Esta é a página do <%= video.name %></h2></br>
+<% if(video.pending_original == 'true'){%>
+    <h4>
+      Ainda não terminamos de fazer o upload para a Amazon.</br>
+      Aguarde um momento, estamos cuidando de tudo
+    </h4>
+<%} else {%>
+  Este é o path da versão original: <%= video.original_video_path %></br>
+  Seu arquivo já está lá
+    <% if(video.pending_encoded == 'false'){%>
+      <a href="http://<%= video.encoded_video_path %>" class="btn btn-lg btn-primary btn-block">Versão codificada</a></br>
+    <%} else {%>
+      <h4>Estamos aguardando seu vídeo codificar, assim que possível vamos deixa-lo a sua disposição</h4>
+    <%}%>
+<%}%>
 
 
 </div>

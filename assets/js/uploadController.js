@@ -3,6 +3,9 @@ angular
 .controller('uploadController',
 ['$scope', '$http', 'toastr', function($scope, $http, toastr){
   $scope.dirty = false;
+
+  
+
   $scope.check_name = function(){
     $http.post('/check_name',{
       name: $scope.uploadForm.name

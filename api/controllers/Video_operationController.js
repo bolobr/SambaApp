@@ -11,6 +11,7 @@ var s3 = require('s3');
 var encoded_path = "s3.amazonaws.com/bolobuckettest/video/encoded/"
 var original_path = "s3.amazonaws.com/bolobuckettest/video/original/"
 var fs = require('fs');
+var request = require('request'); // include request module
 
 var client = s3.createClient({
   maxAsyncS3: 20,     // this is the default
@@ -58,7 +59,7 @@ module.exports = {
       file.upload({
         maxBytes: 2000000000,
         onProgress: function(teste, log){
-            console.log(teste);
+            // console.log(teste);
         },
         }, function(err, files){
           if(err){
@@ -73,6 +74,8 @@ module.exports = {
             original_video_path: original_path + name + '/' + files[0]['filename'],
             encoded_video_path: encoded_path + name + '/' + new_file_name,
             file_name: files[0]['filename'],
+            pending_encoded: 'true',
+            pending_original: 'true',
           }, function(err, video){
             if(err){
               console.log(err);
@@ -85,16 +88,29 @@ module.exports = {
 
       });
     },
-		show: function(req, res){
+
+    show: function(req, res){
 			parameter = req.param('id') || req.params
 			Video.findOne(parameter, function(err, vid){
+        console.log(vid);
 				if(err){
 					console.log(err);
 					return res.notFound();
 				}
-				res.view({
-					video: vid
-				})
+        if(vid.pending_original == 'false' && vid.pending_encoded == 'true'){
+          request("https://" + vid.encoded_video_path, function (err, resp) {
+            if (err) return res.view({video: vid});
+            if (resp.statusCode === 200) {
+              vid.pending_encoded = false;
+              Video.update({id: parameter}, {pending_encoded: 'false'}, function(err){})
+            }
+            return res.view({
+              video: vid
+            })
+          });
+
+        }
+
 			});
 		},
 
