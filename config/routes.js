@@ -38,6 +38,7 @@ module.exports.routes = {
   'POST /create': 'Video_operationController.create',
   'GET /video/:id': 'Video_operationController.show',
   'GET /home': "Video_operationController.index",
+  'POST /check_name': "Video_operationController.check_name",
 
 
   /***************************************************************************

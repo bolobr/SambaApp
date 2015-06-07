@@ -36,6 +36,13 @@ module.exports = {
        })
 
     },
+    check_name: function(req, res){
+      name = req.param('name');
+      Video.find({name: name}, function(err, videos){
+        if(err || videos.length == 0) return res.json(false);
+        return res.json(true)
+      });
+    },
 
 		new_video: function(req, res){
 			return res.view();
