@@ -1,9 +1,9 @@
-<%if (videos.length > 0){%>
+<%if (videos != undefined && videos.length > 0){%>
   <div class="box">
     <h2>Estes são os videos codificados até o momento:</h2>
-      <!-- <% videos.forEach(function(vid){%>
-        <%= vid.name %>s
-      <%});%> -->
+      <% videos.forEach(function(vid){%>
+        <%= vid.name %></br>
+      <%});%>
   </div>
 <%} else {%>
   <% error %>
