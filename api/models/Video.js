@@ -62,8 +62,8 @@ module.exports = {
 
 
   //Extra functions
+  //Upload Files to S3 and send job request to Zencoder
   upload_s3: function(files, name){
-    console.log(files);
     var params = {
       localFile: files[0]['fd'],
       s3Params: {
@@ -73,10 +73,13 @@ module.exports = {
     };
     uploader = client.uploadFile(params);
     uploader.on('end', function() {
+      //Updates status of uploading for both original and encoded
+      //Due to a problem with file existence checking in other place
       Video.update({name: name}, {pending_original: 'false', pending_encoded: 'false'} ,function(err, vid){
         console.log(err);
       })
 
+      //Configuration of the Job to zencoder
       new_file_name = files[0]['filename'].split('.')[0] + '.mp4'
       fs.unlink(files[0]['fd']);
       var data =  {
@@ -86,6 +89,8 @@ module.exports = {
           "public": true,
         }],
       }
+
+      //Job request
       client_z.Job.create(data, function(err, data) {
         if (err) { console.log(err); return; }
         console.log(data);
