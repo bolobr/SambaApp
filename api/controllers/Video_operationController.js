@@ -65,6 +65,7 @@ module.exports = {
             return res.redirect('/new_video');
           }
           name = req.param('name')
+          console.log(name);
           new_file_name = files[0]['filename'].split('.')[0] + '.mp4'
           Video.create({
             name: name,
