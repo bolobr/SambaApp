@@ -25,7 +25,8 @@
     "sails-disk": "~0.10.0",
     "sails-generate-bower": "latest",
     "sails-mongo": "latest",
-    "skipper-s3": "^0.5.5"
+    "skipper-s3": "^0.5.5",
+    "zencoder": "latest"
   },
   "name": "App",
   "private": true,
