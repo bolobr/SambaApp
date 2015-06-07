@@ -32,9 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  },
+  '/': 'Video_operationController.index',
   'GET /index': 'Video_operationController.index',
   'GET /new_video': 'Video_operationController.new_video',
   'POST /create': 'Video_operationController.create',

@@ -2,7 +2,9 @@
   <div class="box">
     <h2>Estes são os videos codificados até o momento:</h2>
       <% videos.forEach(function(vid){%>
-        <%= vid.name %></br>
+            <a href='video/<%= vid.id %>'>
+                <%= vid.name %>
+            </a>
       <%});%>
   </div>
 <%} else {%>
