@@ -2,7 +2,6 @@ var Sails = require('sails');
 var sinon = require('sinon'); // Mocking/stubbing/spying
 var assert = require('assert'); // Assertions
 var VidOp = require('../../api/controllers/Video_operationController.js');
-var request = require('supertest');
 var wolfpack = require('wolfpack');
 var video_inst = wolfpack('/api/models/Video');
 
@@ -127,33 +126,4 @@ describe("Vid Op Controller", function(){
   });
 
   response.reset();
-
-  describe("Post to create", function(){
-    it("should not allow files other than video", function(){
-      //Elimina qualquer teste do Banco de dados
-      video_inst.destroy({name: 'Teste'}, function(err,v){});
-      request.params.name = "Teste";
-      VidOp.create(request, response);
-      //O teste é feito verificando a rota tomada de padrão '/video/:id'
-      str = response.redirect_called.split('/')[1] //obtem o video da rota
-      assert.equal(str, 'new_video');//verifica se está correto
-
-    });
-
-    it("should create and redirect para a página show with correct params", function(){
-      //Elimina qualquer teste do Banco de dados
-      video_inst.destroy({name: 'Teste'}, function(err,v){});
-      request.params.name = "Teste";
-      VidOp.create(request, response);
-      //O teste é feito verificando a rota tomada de padrão '/video/:id'
-      str = response.redirect_called.split('/')[1] //obtem o video da rota
-      assert.equal(str, 'video');//verifica se está correto
-
-    });
-
-
-  });
-
-
-
 });

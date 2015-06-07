@@ -21,27 +21,11 @@ describe('Model Video', function () {
       assert.equal(Video.attributes.encoded_video_path.type, 'string');
     });
   });
-  describe("Functions", function(){
-    it("shoud have a beforeCreate", function(){
-      assert.equal(typeof Video.beforeCreate, 'function');
-    })
-  })
-
-
 });
 
 
 describe('Instance of Video', function(){
-  //Testing for identical paths for encoded and original video
-  v = video_inst.create({
-    name: "teste",
-    original_video_path: "/home/teste/vid1/original/vid",
-    encoded_video_path: "/home/teste/vid1/original/vid"
-  }, function(err, vid){
-    it("Should not have same path for both original and encoded", function(){
-      assert.notEqual(vid.original_video_path, vid.encoded_video_path);
-    });
-  });
+
 
   v = video_inst.create({
     name: "",
@@ -62,18 +46,4 @@ describe('Instance of Video', function(){
     });
   });
 
-  //Testing for video uniqueness path
-  //describe("Paths should be unique", function(){
-
-  //})
-
-  //Testing for video in web safe format
-  //v = video_inst.create({
-  //  name: "te",
-  //  original_video_path: "te"
-  //}, function(err, vid){
-  //  it("should have a web safe extension for encoded video", function(){
-  //
-  //  })
-  //})
 });
