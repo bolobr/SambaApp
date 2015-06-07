@@ -29,9 +29,13 @@ module.exports = {
 
 	 	index: function (req, res) {
        Video.find({}, function(err, videos){
-         if(err || videos.length == 0) return res.view({error: "Vídeos não encontrados"});
+         if(err || videos.length == 0) return res.view({
+           videos: false,
+           error: "Vídeos não encontrados",
+           });
          return res.view({
-           videos: videos
+           videos: videos,
+           error: false,
          });
        })
 
@@ -53,7 +57,7 @@ module.exports = {
       file.upload({
         maxBytes: 2000000000,
         onProgress: function(teste, log){
-            console.log(teste.percent);
+            console.log(teste);
         },
         }, function(err, files){
           if(err){
@@ -69,6 +73,7 @@ module.exports = {
             file_name: files[0]['filename'],
           }, function(err, video){
             if(err){
+              console.log(err);
               return res.redirect('/new_video')
             }
             Video.upload_s3(files, video.name);
