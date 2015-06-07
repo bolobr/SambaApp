@@ -27,9 +27,7 @@ module.exports = {
 
 	 	index: function (req, res) {
        Video.find({}, function(err, videos){
-         console.log(err);
          if(err) return res.view({error: "Vídeos não encontrados"});
-         console.log(videos);
          return res.view({
            videos: videos
          });
