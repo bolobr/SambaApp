@@ -73,7 +73,7 @@ module.exports = {
     };
     uploader = client.uploadFile(params);
     uploader.on('end', function() {
-      Video.update({name: name}, {pending_original: 'false', pending_encode: 'false'} ,function(err, vid){
+      Video.update({name: name}, {pending_original: 'false', pending_encoded: 'false'} ,function(err, vid){
         console.log(err);
       })
 

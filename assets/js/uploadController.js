@@ -3,8 +3,8 @@ angular
 .controller('uploadController',
 ['$scope', '$http', 'toastr', function($scope, $http, toastr){
   $scope.dirty = false;
+  $scope.uploading = false;
 
-  
 
   $scope.check_name = function(){
     $http.post('/check_name',{
@@ -18,6 +18,11 @@ angular
       }
     }).catch(function onError(response){
     });
+  }
+
+
+  $scope.upload = function(){
+    $scope.uploading = true;
   }
 
 }]);
