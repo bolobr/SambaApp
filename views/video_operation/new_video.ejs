@@ -1,10 +1,14 @@
-<div class="col-md-6 box col-md-offset-3">
+<div class="col-md-6 box col-md-offset-3" ng-app="uploadModule" ng-controller="uploadController">
   <form action="/create" method="POST" enctype="multipart/form-data" id="video-create-form" class="form-signin">
 	   <h2 class="form-signin-heading">Codifique um vídeo</h2>
-     <label for="Nome do Vídeo">Nome do Vídeo</label>
-	    <div class="control-group">
-	       <input type="text" class="form-control" placeholder="Nome do Vídeo" name="name" required>
-	      </div>
+	    <div class="control-group error">
+          <label for="Nome do Vídeo">Nome do Vídeo</label>
+          <input ng-model="uploadForm.name" ng-change="check_name()" type="text" class="form-control" placeholder="Nome do Vídeo" name="name" required>
+          <span class="help-block has-error" ng-if='dirty == true'>
+            <span ng-show="dirty == true">Name is already taken - Choose a new one so we can upload your file</span>
+          </span>
+
+	     </div>
       </br>
       <label for="Arquivo">Arquivo do Vídeo</label>
 
