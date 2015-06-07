@@ -29,7 +29,7 @@ module.exports = {
 
 	 	index: function (req, res) {
        Video.find({}, function(err, videos){
-         if(err) return res.view({error: "Vídeos não encontrados"});
+         if(err || videos.length == 0) return res.view({error: "Vídeos não encontrados"});
          return res.view({
            videos: videos
          });
