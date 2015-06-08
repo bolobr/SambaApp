@@ -40,13 +40,13 @@ module.exports.connections = {
   * Run: npm install sails-mysql                                             *
   *                                                                          *
   ***************************************************************************/
-  someMysqlServer: {
-    adapter: 'sails-mysql',
-    host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-    user: 'YOUR_MYSQL_USER',
-    password: 'YOUR_MYSQL_PASSWORD',
-    database: 'YOUR_MYSQL_DB'
-  },
+  // someMysqlServer: {
+  //   adapter: 'sails-mysql',
+  //   host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
+  //   user: 'YOUR_MYSQL_USER',
+  //   password: 'YOUR_MYSQL_PASSWORD',
+  //   database: 'YOUR_MYSQL_DB'
+  // },
 
   /***************************************************************************
   *                                                                          *
@@ -56,18 +56,18 @@ module.exports.connections = {
   * Run: npm install sails-mongo                                             *
   *                                                                          *
   ***************************************************************************/
-  someMongodbServer: {
-    adapter: 'sails-mongo',
-    host: 'localhost',
-    port: 27017,
-    // user: 'username',
-    // password: 'password',
-    // database: 'your_mongo_db_name_here'
-  },
+  // someMongodbServer: {
+  //   adapter: 'sails-mongo',
+  //   host: 'localhost',
+  //   port: 27017,
+  //   // user: 'username',
+  //   // password: 'password',
+  //   // database: 'your_mongo_db_name_here'
+  // },
 
   productionMongoServer: {
     adapter: 'sails-mongo',
-    url: 'mongodb://sambatest:teste@ds045242.mongolab.com:45242/heroku_app37580612'
+    url: process.env.Mongo,
     // user: 'username',
     // password: 'password',
     // database: 'your_mongo_db_name_here'

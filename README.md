@@ -34,6 +34,12 @@ Depois basta executar:
 
 $: grunt test
 
+#Alguns detalhes do funcionamento:
+
+A aplicação tem 3 páginas: indíce, submeter vídeos e visualizar o
+vídeo. Se for necessário testar algum vídeo que já esteja com o nome ocupado,
+basta renomear o arquivo.
+
 #Decisões:
 
 O framework foi escolhido por sua facilidade de deployment frente aos outros
