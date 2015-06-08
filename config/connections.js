@@ -67,7 +67,7 @@ module.exports.connections = {
 
   productionMongoServer: {
     adapter: 'sails-mongo',
-    url: process.env.Mongo,
+    url: process.env.MONGOLAB_URI,
     // user: 'username',
     // password: 'password',
     // database: 'your_mongo_db_name_here'
